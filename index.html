@@ -162,10 +162,71 @@
       <div class="wrap reveal">
         <span class="eyebrow">Contact</span>
         <h2>Let's tell the <span class="blue">story.</span></h2>
-        <p>For story tips, documentary commissions, video and photo work.</p>
+        <p>Book Walter or send a request for reporting, documentary, video or photo work.</p>
+
+        <!--
+          BOOKING FORM
+          GitHub Pages can't receive form submissions, so the form either:
+          - posts to a form service if data-endpoint is set (e.g. a free Formspree
+            form: data-endpoint="https://formspree.io/f/xxxxxxx"), or
+          - otherwise opens the visitor's email app with the request filled in,
+            addressed to data-email.
+          TODO: set data-email to Walter's real address (and optionally data-endpoint).
+        -->
+        <form class="booking" id="booking" data-email="hello@example.com" data-endpoint="" novalidate>
+          <fieldset class="field full">
+            <legend>What do you need?</legend>
+            <div class="options">
+              <label><input type="radio" name="service" value="Reporting / story tip" checked><span>Story tip</span></label>
+              <label><input type="radio" name="service" value="Documentary production"><span>Documentary</span></label>
+              <label><input type="radio" name="service" value="Videography"><span>Videography</span></label>
+              <label><input type="radio" name="service" value="Photography"><span>Photography</span></label>
+              <label><input type="radio" name="service" value="Speaking / panel / moderation"><span>Speaking or panel</span></label>
+              <label><input type="radio" name="service" value="Other"><span>Other</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone or WhatsApp <span class="opt">Optional</span></label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-org">Organisation <span class="opt">Optional</span></label>
+            <input id="f-org" name="organisation" type="text" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="f-date">Preferred date <span class="opt">Optional</span></label>
+            <input id="f-date" name="date" type="date">
+          </div>
+          <div class="field">
+            <label for="f-location">Location <span class="opt">Optional</span></label>
+            <input id="f-location" name="location" type="text" placeholder="e.g. Kampala">
+          </div>
+          <div class="field full">
+            <label for="f-message">Tell Walter about it</label>
+            <textarea id="f-message" name="message" rows="5" required placeholder="What's the story, project or event? Include any deadlines or budget."></textarea>
+          </div>
+          <!-- spam trap: real people never fill this in -->
+          <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-foot full">
+            <p class="status" role="status" aria-live="polite"></p>
+            <button class="btn primary" type="submit">Send request</button>
+          </div>
+        </form>
+
+        <p class="direct">Prefer to reach out directly?</p>
         <!-- TODO: replace placeholder email and WhatsApp number -->
         <div class="ctas">
-          <a class="btn primary" href="mailto:hello@example.com">Email Walter</a>
+          <a class="btn secondary" href="mailto:hello@example.com">Email Walter</a>
           <a class="btn secondary" href="https://wa.me/256700000000" target="_blank" rel="noopener">WhatsApp</a>
         </div>
         <!-- TODO: add real profile links -->

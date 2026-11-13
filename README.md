@@ -26,6 +26,7 @@ Then visit http://localhost:8000.
 
 - **Work:** in `index.html`, find `ADD WORK HERE` and copy one `<a class="item">` block per piece. Set `data-type` to `video`, `documentary` or `photo` so the filters work, set `href` to the YouTube, article or Instagram link, and add a thumbnail with `style="background-image:url(assets/images/your-file.jpg)"` on the `.thumb` div.
 - **Contact:** replace the placeholder email, WhatsApp number and social links (marked `TODO`).
+- **Booking form:** set `data-email` on the `<form id="booking">` to Walter's address. By default, submitting opens the visitor's email app with the request filled in. To receive requests without that step, create a free form at a service such as Formspree and put its URL in `data-endpoint`.
 - **Award:** confirm the award name and year in the Recognition section.
 - **Photos:** replace the files in `assets/images/` with higher-resolution versions, keeping the same names.
 

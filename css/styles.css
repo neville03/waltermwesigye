@@ -197,6 +197,50 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.035em; line-height:
 .contact h2 { font-size: clamp(2.8rem, 7vw, 5.6rem); margin: 14px 0 22px; }
 .contact p { color: var(--muted); font-size: 1.2rem; margin: 0 auto 36px; max-width: 32ch; }
 .contact .ctas { justify-content: center; }
+
+/* Booking form */
+.booking {
+  max-width: 820px; margin: 0 auto; text-align: left;
+  background: var(--surface); border-radius: var(--r); padding: 28px 20px;
+  display: grid; gap: 20px; grid-template-columns: 1fr;
+}
+@media (min-width: 720px) { .booking { grid-template-columns: 1fr 1fr; padding: 44px; gap: 22px 20px; } }
+.booking .full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 0; margin: 0; padding: 0; }
+.field label, .field legend { font-size: .9rem; font-weight: 500; padding: 0; }
+.field legend { margin-bottom: 12px; }
+.opt { color: var(--faint); font-weight: 400; margin-left: 4px; }
+.field input, .field textarea {
+  font: inherit; font-size: 1rem; color: var(--text);
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 13px 16px; width: 100%; min-height: 50px;
+  transition: border-color .2s, box-shadow .2s;
+  -webkit-appearance: none; appearance: none;
+}
+.field textarea { resize: vertical; min-height: 140px; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder { color: var(--faint); }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(29, 91, 255, .15); }
+.field input.invalid, .field textarea.invalid { border-color: #d93025; box-shadow: 0 0 0 4px rgba(217, 48, 37, .1); }
+.options { display: flex; flex-wrap: wrap; gap: 8px; }
+.options label { position: relative; cursor: pointer; }
+.options input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.options span {
+  display: inline-block; padding: 10px 16px; border-radius: 999px; font-size: .92rem; font-weight: 500;
+  background: #fff; border: 1px solid var(--line); color: var(--text);
+  transition: background .2s, border-color .2s, color .2s;
+}
+.options label:hover span { border-color: var(--faint); }
+.options input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }
+.options input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 3px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 4px; }
+.form-foot .btn { border: 0; cursor: pointer; }
+.form-foot .btn[disabled] { opacity: .6; cursor: wait; }
+.contact .status { margin: 0; font-size: .95rem; color: var(--muted); max-width: none; }
+.contact .status.ok { color: #137333; }
+.contact .status.err { color: #d93025; }
+@media (max-width: 719px) { .form-foot .btn { width: 100%; justify-content: center; } }
+.contact .direct { margin: 56px auto 16px; font-size: 1rem; }
 .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 40px; color: var(--muted); font-size: .95rem; }
 .socials a:hover { color: var(--blue); }
 
