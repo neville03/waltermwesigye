@@ -1,11 +1,10 @@
 // Where the editor saves changes.
-// `branch` must be the branch GitHub Pages publishes the site from.
+// `branch` must match GITHUB_BRANCH in Vercel (default main) and Vercel's production branch.
 export default {
-  owner: 'neville03',
-  repo: 'waltermwesigye',
   branch: 'main',
   contentPath: 'content/site.json',
   uploadDir: 'assets/uploads',
   maxImageSide: 2200,          // larger photos are resized before upload
-  maxVideoMB: 25               // bigger videos should go on YouTube instead
+  maxUploadMB: 3,              // Vercel accepts up to ~4.5 MB per request (files grow a third when sent)
+  maxVideoMB: 3                // longer videos should go on YouTube instead
 };

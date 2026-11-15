@@ -21,26 +21,18 @@
     <div class="login-card">
       <div class="logo">W</div>
       <h1>Edit your website</h1>
-      <p class="lead">Sign in once on this device with a GitHub access key. Your changes are saved straight to the website.</p>
+      <p class="lead">Sign in to change text, photos, videos and pages.</p>
 
       <form id="login-form">
-        <label for="token">GitHub access key</label>
-        <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required>
+        <label for="password">Password</label>
+        <div class="pw">
+          <input id="password" type="password" autocomplete="current-password" required>
+          <button type="button" id="show-pw" class="pw-toggle">Show</button>
+        </div>
         <p class="error" id="login-error" role="alert"></p>
         <button class="btn primary wide" type="submit">Sign in</button>
       </form>
-
-      <details class="howto">
-        <summary>How do I get an access key?</summary>
-        <ol>
-          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub's new access key page</a> and sign in.</li>
-          <li>Name it <b>Website editor</b> and pick an expiry date, for example one year.</li>
-          <li>Under <b>Repository access</b>, choose <b>Only select repositories</b> and pick <b id="repo-name">waltermwesigye</b>.</li>
-          <li>Under <b>Permissions → Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li>
-          <li>Click <b>Generate token</b>, copy it, and paste it above.</li>
-        </ol>
-        <p class="note">The key stays on this device only. On a shared computer, use <b>Sign out</b> when you're done.</p>
-      </details>
+      <p class="note center">You'll stay signed in on this device for 30 days.</p>
 
       <button class="link-btn" id="demo-btn" type="button">Look around without signing in</button>
     </div>

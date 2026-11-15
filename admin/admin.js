@@ -60,24 +60,31 @@ const isDirty = () => json() !== state.published;
 const mediaUrl = p => !p ? '' : state.blobUrls[p] || (/^(https?:|blob:|data:)/.test(p) ? p : '../' + p);
 
 // ---------- boot ----------
-$('#repo-name').textContent = config.repo;
-
 $('#login-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const token = $('#token').value.trim();
-  const btn = e.submitter || $('#login-form button');
+  const password = $('#password').value;
+  const btn = $('#login-form button[type=submit]');
   $('#login-error').textContent = '';
-  btn.disabled = true; btn.textContent = 'Checking…';
-  gh.setToken(token);
+  if (!password) { $('#login-error').textContent = 'Enter the password.'; return; }
+  btn.disabled = true; btn.textContent = 'Signing in…';
   try {
-    await gh.verify();
+    await gh.login(password);
+    $('#password').value = '';
     await startGithub();
   } catch (err) {
-    gh.setToken('');
-    $('#login-error').textContent = err.status === 401 ? 'That access key was not accepted. Check you copied all of it.' : err.message;
+    $('#login-error').textContent = err.message;
+    $('#password').select();
   } finally {
     btn.disabled = false; btn.textContent = 'Sign in';
   }
+});
+
+$('#show-pw').addEventListener('click', () => {
+  const pw = $('#password');
+  const show = pw.type === 'password';
+  pw.type = show ? 'text' : 'password';
+  $('#show-pw').textContent = show ? 'Hide' : 'Show';
+  pw.focus();
 });
 
 $('#demo-btn').addEventListener('click', startDemo);
@@ -121,16 +128,13 @@ async function start(content) {
 }
 
 (async function boot() {
-  if (gh.getToken()) {
-    try { await startGithub(); return; }
-    catch (err) {
-      $('#login-error').textContent = err.status === 401
-        ? 'Your access key has expired or was removed. Please sign in again.'
-        : `Couldn't load the website: ${err.message}`;
-      if (err.status === 401) gh.setToken('');
-    }
+  try {
+    if (await gh.signedIn()) { await startGithub(); return; }
+  } catch (err) {
+    if (err.status !== 401) $('#login-error').textContent = err.message;
   }
   $('#login').hidden = false;
+  setTimeout(() => $('#password').focus(), 50);
 })();
 
 // ---------- change tracking, undo, autosave ----------
@@ -307,7 +311,7 @@ $('#discard').onclick = async () => {
 $('#signout').onclick = async () => {
   $('#more-menu').hidden = true;
   if (isDirty() && !(await confirmBox('Sign out?', 'Your unpublished changes stay saved on this device until you sign in again.', 'Sign out'))) return;
-  gh.setToken('');
+  await gh.logout();
   location.reload();
 };
 
@@ -645,7 +649,7 @@ async function addUpload(file, accept = 'image/*,video/*') {
     blob = await resizeImage(file);
     if (blob !== file) ext = 'jpg';
   }
-  if (isImg && blob.size > 15e6) throw new Error('That photo is too large. Please choose a smaller one.');
+  if (isImg && blob.size > config.maxUploadMB * 1e6) throw new Error('That photo is too large. Please choose a smaller one.');
   const base = slugify(file.name.replace(/\.[^.]+$/, '')) || 'upload';
   const path = `${config.uploadDir}/${Date.now().toString(36)}-${base}.${ext || 'bin'}`;
   state.uploads[path] = blob;
@@ -659,6 +663,7 @@ async function resizeImage(file) {
   const max = config.maxImageSide;
   const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
   if (scale === 1 && file.size < 900 * 1024 && /jpeg|png|webp/.test(file.type)) return file;
+  // otherwise re-encode as a smaller JPEG
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bmp.width * scale);
   canvas.height = Math.round(bmp.height * scale);
@@ -666,7 +671,13 @@ async function resizeImage(file) {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
-  return new Promise(res => canvas.toBlob(b => res(b || file), 'image/jpeg', 0.86));
+  const toJpeg = q => new Promise(res => canvas.toBlob(b => res(b || file), 'image/jpeg', q));
+  let out = await toJpeg(0.86);
+  for (const q of [0.75, 0.62, 0.5]) {
+    if (out.size <= config.maxUploadMB * 1e6) break;
+    out = await toJpeg(q);
+  }
+  return out;
 }
 
 // Repeating items (buttons, cards, work, gallery…)
@@ -870,7 +881,7 @@ $('#publish').onclick = async () => {
     toast('Published. The website will show your changes in about a minute.', '', 6000);
   } catch (err) {
     dlg.close();
-    toast(err.status === 401 ? 'Your access key has expired. Sign out and sign in again.' : `Publishing failed: ${err.message}`, 'err', 8000);
+    toast(err.status === 401 ? 'You were signed out. Your changes are saved; sign in again, then press Publish.' : `Publishing failed: ${err.message}`, 'err', 8000);
   }
 };
 
