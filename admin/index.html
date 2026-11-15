@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Site editor · Walter Mwesigye</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Sign in -->
+  <div id="login" class="login" hidden>
+    <div class="login-card">
+      <div class="logo">W</div>
+      <h1>Edit your website</h1>
+      <p class="lead">Sign in once on this device with a GitHub access key. Your changes are saved straight to the website.</p>
+
+      <form id="login-form">
+        <label for="token">GitHub access key</label>
+        <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required>
+        <p class="error" id="login-error" role="alert"></p>
+        <button class="btn primary wide" type="submit">Sign in</button>
+      </form>
+
+      <details class="howto">
+        <summary>How do I get an access key?</summary>
+        <ol>
+          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub's new access key page</a> and sign in.</li>
+          <li>Name it <b>Website editor</b> and pick an expiry date, for example one year.</li>
+          <li>Under <b>Repository access</b>, choose <b>Only select repositories</b> and pick <b id="repo-name">waltermwesigye</b>.</li>
+          <li>Under <b>Permissions → Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li>
+          <li>Click <b>Generate token</b>, copy it, and paste it above.</li>
+        </ol>
+        <p class="note">The key stays on this device only. On a shared computer, use <b>Sign out</b> when you're done.</p>
+      </details>
+
+      <button class="link-btn" id="demo-btn" type="button">Look around without signing in</button>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <div id="app" class="app" hidden>
+    <header class="bar">
+      <div class="brand"><span class="logo sm">W</span><span>Site editor</span><span class="demo-badge" id="demo-badge" hidden>Practice mode</span></div>
+      <div class="status" id="status"></div>
+      <div class="bar-actions">
+        <button class="icon-btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>
+          <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+        <button class="icon-btn" id="redo" title="Redo" aria-label="Redo" disabled>
+          <svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+        <button class="btn ghost hide-sm" id="open-preview">Full preview</button>
+        <button class="btn primary" id="publish" disabled>Publish</button>
+        <div class="more">
+          <button class="icon-btn" id="more-btn" aria-label="More options" aria-expanded="false">
+            <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button>
+          <div class="more-menu" id="more-menu" hidden>
+            <a href="../" target="_blank" rel="noopener">View live website</a>
+            <button id="open-preview-2" class="show-sm">Full preview</button>
+            <button id="discard">Discard unpublished changes</button>
+            <button id="signout">Sign out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="mobile-tabs" role="tablist">
+      <button data-tab="side" class="active">Sections</button>
+      <button data-tab="edit">Edit</button>
+      <button data-tab="preview">Preview</button>
+    </nav>
+
+    <div class="workspace" data-tab="side">
+      <aside class="sidebar">
+        <div class="side-group">
+          <div class="side-head"><span>Pages</span><button class="mini-btn" id="add-page">+ New page</button></div>
+          <div id="pages" class="side-list"></div>
+        </div>
+        <div class="side-group grow">
+          <div class="side-head"><span>Sections on this page</span></div>
+          <div id="sections" class="side-list"></div>
+          <button class="add-btn" id="add-section">+ Add section</button>
+        </div>
+        <div class="side-group">
+          <button class="side-item" data-select="page"><span class="si-icon">⚙</span><span class="si-text">Page settings</span></button>
+          <button class="side-item" data-select="site"><span class="si-icon">☰</span><span class="si-text">Menu, footer and site name</span></button>
+        </div>
+      </aside>
+
+      <section class="editor" id="editor"></section>
+
+      <section class="preview">
+        <div class="preview-bar">
+          <div class="seg" role="group" aria-label="Preview size">
+            <button data-device="desktop" class="active">Computer</button>
+            <button data-device="mobile">Phone</button>
+          </div>
+          <span class="preview-note">Preview: click any section to edit it</span>
+        </div>
+        <div class="frame-wrap" id="frame-wrap">
+          <iframe id="frame" title="Website preview" src="../index.html?preview=1"></iframe>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <dialog id="modal"></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <datalist id="link-options"></datalist>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

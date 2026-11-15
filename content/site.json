@@ -1,0 +1,103 @@
+{
+  "site": {
+    "name": "Walter Mwesigye",
+    "title": "Walter Mwesigye | Journalist & Filmmaker",
+    "description": "Walter Mwesigye is a seasoned reporter at NTV Uganda covering science, health and the environment, and a documentary producer, videographer and photographer.",
+    "nav": [
+      { "label": "Work", "link": "#work" },
+      { "label": "Services", "link": "#services" },
+      { "label": "About", "link": "#about" }
+    ],
+    "navButton": { "label": "Get in touch", "link": "#contact" },
+    "footerLeft": "© {year} Walter Mwesigye",
+    "footerRight": "Uganda"
+  },
+  "pages": [
+    {
+      "slug": "home",
+      "title": "Home",
+      "sections": [
+        {
+          "type": "hero",
+          "anchor": "top",
+          "eyebrow": "Journalist & filmmaker · NTV Uganda",
+          "heading": "Stories that move *communities* forward.",
+          "text": "Science, health and environment reporting, documentaries, video and photography.",
+          "media": "assets/images/walter-hero.jpg",
+          "mediaAlt": "Walter Mwesigye speaking on a panel in Kampala",
+          "buttons": [
+            { "label": "View work", "link": "#work", "style": "primary" },
+            { "label": "About Walter", "link": "#about", "style": "secondary" }
+          ]
+        },
+        {
+          "type": "statement",
+          "anchor": "about",
+          "text": "Walter Mwesigye is a seasoned reporter at NTV Uganda.",
+          "muted": "For over 15 years he has covered science, health and the environment, with stories that also run in the Daily Monitor."
+        },
+        {
+          "type": "stats",
+          "items": [
+            { "value": "15+", "label": "Years in journalism" },
+            { "value": "3", "label": "Beats: science, health, environment" },
+            { "value": "TV · Print", "label": "NTV Uganda and Daily Monitor" }
+          ]
+        },
+        {
+          "type": "services",
+          "anchor": "services",
+          "heading": "What he does.",
+          "intro": "From the newsroom to the field, one storyteller across four crafts.",
+          "items": [
+            { "icon": "screen", "title": "Reporting", "text": "Broadcast and print journalism for NTV Uganda and the Daily Monitor.", "tags": "Science, Health, Environment", "size": "wide", "highlight": true },
+            { "icon": "camera-video", "title": "Documentary", "text": "Long-form films, from research to final cut.", "tags": "", "size": "narrow", "highlight": false },
+            { "icon": "play", "title": "Videography", "text": "Camera work for news, features, events and organisations.", "tags": "", "size": "half", "highlight": false },
+            { "icon": "camera", "title": "Photography", "text": "Documentary, editorial and portrait photography.", "tags": "", "size": "half", "highlight": false }
+          ]
+        },
+        {
+          "type": "work",
+          "anchor": "work",
+          "heading": "Selected work.",
+          "filters": true,
+          "items": [
+            { "type": "video", "title": "Featured report", "meta": "NTV Uganda · YouTube", "text": "Add the story title and a one-line summary.", "image": "", "video": "https://www.youtube.com/watch?v=qbnqlz21oSM", "link": "" },
+            { "type": "documentary", "title": "Documentary title", "meta": "Documentary", "text": "One line on the film and its impact.", "image": "", "video": "", "link": "" },
+            { "type": "photo", "title": "Photo story", "meta": "Instagram · Photography", "text": "Add the caption or story behind the photo.", "image": "", "video": "", "link": "https://www.instagram.com/p/DU8egc9kqCa/" }
+          ]
+        },
+        {
+          "type": "feature",
+          "anchor": "recognition",
+          "eyebrow": "Recognition",
+          "heading": "Merck Foundation media award.",
+          "text": "Recognised by the Merck Foundation for his health reporting.",
+          "media": "assets/images/walter-award.jpg",
+          "mediaAlt": "Walter Mwesigye holding his Merck Foundation award certificate and medal",
+          "linkLabel": "",
+          "link": "",
+          "flip": false
+        },
+        {
+          "type": "contact",
+          "anchor": "contact",
+          "eyebrow": "Contact",
+          "heading": "Let's tell the *story.*",
+          "text": "Book Walter or send a request for reporting, documentary, video or photo work.",
+          "showForm": true,
+          "services": "Story tip\nDocumentary\nVideography\nPhotography\nSpeaking or panel\nOther",
+          "email": "hello@example.com",
+          "formEndpoint": "",
+          "whatsapp": "256700000000",
+          "socials": [
+            { "label": "Instagram", "link": "" },
+            { "label": "X", "link": "" },
+            { "label": "LinkedIn", "link": "" },
+            { "label": "YouTube", "link": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}
