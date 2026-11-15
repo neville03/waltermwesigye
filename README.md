@@ -28,7 +28,7 @@ Then visit http://localhost:8000.
 
 ## Editing the website
 
-Walter edits everything (text, photos, videos, sections and pages) in the site editor at **/admin**, for example `https://neville03.github.io/waltermwesigye/admin/`.
+Walter edits everything (text, photos, videos, sections and pages) in the site editor at **/admin**, for example `https://your-site.vercel.app/admin/`.
 
 - **Sign in:** the first time, paste a GitHub access key (instructions are on the sign-in screen). It needs access to this repository only, with **Contents: Read and write**. The key is remembered on that device.
 - **Edit:** pick a section on the left, change it in the middle, and see it update in the preview on the right. Click any section in the preview to jump to it. Use the Computer/Phone switch, or **Full preview** to open it in a new tab.
@@ -38,7 +38,7 @@ Walter edits everything (text, photos, videos, sections and pages) in the site e
 - **Publish:** nothing goes live until you press **Publish**. Unpublished changes are kept on the device, so closing the tab loses nothing. The live site updates about a minute after publishing.
 - **Practice mode:** "Look around without signing in" lets anyone try the editor without changing the site.
 
-The editor saves to the branch set in `admin/config.js` (`main` by default), which must be the branch GitHub Pages publishes.
+The editor saves to the branch set in `admin/config.js` (`main` by default), which must be the branch Vercel deploys to production.
 
 ### How it works
 
@@ -50,6 +50,10 @@ Set the email address in the Contact & booking section. By default, submitting o
 
 ## Deploy
 
-**GitHub Pages:** Settings → Pages → Source: *Deploy from a branch* → `main` / root.
+The site is hosted on **Vercel**, which redeploys automatically whenever the repository changes, including every time Walter presses Publish in the editor.
 
-Vercel and Netlify also work with no configuration.
+- In Vercel, **Settings > Git > Production Branch** must be `main`, the same branch the editor saves to (`admin/config.js`).
+- No build step: Framework Preset **Other**, no build command, output directory = repository root.
+- `vercel.json` adds a trailing slash to addresses so `/admin` opens the editor correctly, and stops the content file being cached.
+
+It also works on GitHub Pages or Netlify with no changes.
